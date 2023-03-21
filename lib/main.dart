@@ -51,8 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.bookmarks), label: "Bookmark"),
         BottomNavigationBarItem(icon: Icon(Icons.explore), label: "Explore"),
+        BottomNavigationBarItem(icon: Icon(Icons.bookmarks), label: "Bookmark"),
         BottomNavigationBarItem(
             icon: Icon(Icons.newspaper_rounded), label: "Anime News"),
       ],
