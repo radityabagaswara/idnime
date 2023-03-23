@@ -9,6 +9,12 @@ class AnimeDetail extends StatefulWidget {
 }
 
 class _AnimeDetailState extends State<AnimeDetail> {
+  bool _infoExpanded = false;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,21 +30,12 @@ class _AnimeDetailState extends State<AnimeDetail> {
                   bottom: PreferredSize(
                     preferredSize: Size.fromHeight(0),
                     child: Container(
-                      height: 40,
+                      height: 20,
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20))),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Center(
-                            child: Text(
-                          "Airing • TV • Winter 2023",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black54),
-                        )),
-                      ),
                     ),
                   ),
                   backgroundColor: Colors.transparent,
@@ -69,6 +66,12 @@ class _AnimeDetailState extends State<AnimeDetail> {
                 ),
                 SliverList(
                     delegate: SliverChildListDelegate([
+                  Center(
+                      child: Text(
+                    "Airing • TV • Winter 2023",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black54),
+                  )),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 20),
                     child: Center(
@@ -171,6 +174,25 @@ class _AnimeDetailState extends State<AnimeDetail> {
                       style: TextStyle(fontSize: 14),
                     ),
                   ),
+                  _infoExpanded
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 8),
+                          child: ShowInfo(),
+                        )
+                      : const SizedBox.shrink(),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _infoExpanded = !_infoExpanded;
+                          });
+                        },
+                        child: Text(_infoExpanded
+                            ? "Hide Information"
+                            : "More Information"),
+                      )),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(10, 20, 5, 10),
                     child: Text(
@@ -285,7 +307,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                     ),
                   ),
                   Container(
-                      height: 174,
+                      height: 200,
                       child: ListView(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         scrollDirection: Axis.horizontal,
@@ -294,9 +316,9 @@ class _AnimeDetailState extends State<AnimeDetail> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: PV(
-                              "PV 1",
-                              "https://is3.cloudhost.id/anilist/kakumei/anishphia.jpg",
-                            ),
+                                "PV 2",
+                                "https://img.youtube.com/vi/XFkQUOuqmcQ/0.jpg",
+                                "https://www.youtube.com/watch?v=XFkQUOuqmcQ"),
                           ),
                         ],
                       )),
@@ -305,7 +327,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
               ],
             ),
             Container(
-              margin: const EdgeInsets.only(bottom: 10),
+              margin: const EdgeInsets.only(bottom: 20),
               width: 200,
               height: 45,
               child: TextButton(
@@ -418,10 +440,10 @@ class _AnimeDetailState extends State<AnimeDetail> {
     );
   }
 
-  Widget PV(name, image) {
+  Widget PV(name, image, url) {
     return InkWell(
       onTap: () {
-        _launchUrl(Uri.parse("https://www.youtube.com/watch?v=XFkQUOuqmcQ"));
+        _launchUrl(Uri.parse(url));
       },
       child: Container(
         width: 250,
@@ -454,5 +476,34 @@ class _AnimeDetailState extends State<AnimeDetail> {
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }
+  }
+
+  Widget ShowInfo() {
+    return Column(
+      children: [
+        InfoRow("Status", "Currently Airing"),
+        InfoRow("Studios", "Diomedéa"),
+        InfoRow("Genres", "Fantasy, Girl Love"),
+        InfoRow("Theme", "Isekai, Reincarnation"),
+        InfoRow("Duration", "23 minutes / eps"),
+        InfoRow("Rating", "PG-13"),
+      ],
+    );
+  }
+
+  Widget InfoRow(key, value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child: (Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            key,
+            style: const TextStyle(color: Colors.black54),
+          ),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w600))
+        ],
+      )),
+    );
   }
 }

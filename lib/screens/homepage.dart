@@ -72,7 +72,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 padding: EdgeInsets.fromLTRB(10, 24, 8, 5),
                 child: Text("Popular Title This Season",
                     style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 24))),
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 18))),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: GridView.builder(
@@ -164,12 +164,16 @@ Widget SliderCard(AnimeObject anim, BuildContext context) {
       Positioned(
           bottom: 10,
           left: 10,
-          child: Text(
-            anim.name.length > 32
-                ? "${anim.name.substring(0, 32)}..."
-                : anim.name,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18),
+          child: Container(
+            width: MediaQuery.of(context).size.width - 50,
+            child: Text(
+              anim.name,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18),
+            ),
           ))
     ],
   ));

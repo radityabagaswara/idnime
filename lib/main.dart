@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sch/screens/explore.dart';
 import 'package:sch/screens/members.dart';
 import 'package:sch/screens/homepage.dart';
 import 'package:sch/screens/settings.dart';
@@ -33,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   final screens = [
     const HomepageScreen(),
-    const MembersScreen(),
+    ExploreScreen(),
     const SettingsScreen()
   ];
 
